@@ -1,33 +1,70 @@
-# React + TypeScript + Vite
+# React Candidate Search
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+link: https://jt-react-candidate-search.onrender.com
 
-Currently, two official plugins are available:
+## 🚀 Overview
+React Candidate Search is a React + TypeScript application that pulls random users from GitHub and displays their profiles. It allows users to search, view, and save candidate profiles. This is a sample of what react and typescript can do together and then deployed on render.
 
-* [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md), which uses [Babel](https://babeljs.io/) for Fast Refresh
-* [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc), which uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Technologies Used
+- **React 18**
+- **TypeScript**
+- **Vite**
+- **React Router**
+- **React Icons**
+- **GitHub API**
+- **Render (for deployment)**
 
-## Expanding the ESLint configuration
+## 📦 Installation
 
-If you're developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Clone the repository:
 
-* Configure the top-level `parserOptions` property as follows:
+   ```sh
+   git clone https://github.com/JT-code-dev/react-candidate-search.git
+   cd react-candidate-search
+2. Run npm install
+3. Creat an .env file in the environment folder
+4. npm run build and then run dev
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## 🛠️ Deployment (Render)
+Here is the link: https://jt-react-candidate-search.onrender.com
 
-* Replace `plugin:@typescript-eslint/recommended` with `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`.
-* Optionally, add `plugin:@typescript-eslint/stylistic-type-checked`.
-* Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` and `plugin:react/jsx-runtime` to the `extends` list.
+##✨ **Features**
+🔍 Fetch Random GitHub Users
+Displays randomly selected users from GitHub, as if they were potential job candidates, and then stores them.
 
----
-© 2024 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+##📌 **Save Candidates**
+Bookmark potential candidates for later reference.
+
+## 🖼️ User Profiles
+Displays GitHub user details including name, avatar, bio, and repositories.
+
+## 🎨 Modern UI
+Built with React and TypeScript for a sleek and responsive design.
+
+## 🌎 Responsive Design
+Works seamlessly on desktop and mobile devices.
+
+## 🎯 Future Improvements
+✅ Implement Pagination for Candidate Search
+Allow navigation through larger sets of candidates.
+
+## 🔍 Add Filters
+Filter candidates by location, repositories, and followers.
+
+## 🌙 Dark Mode Support
+Implement a dark mode option for better UX.
+
+## Screenshots:
+<img width="856" alt="Screenshot 2025-01-28 at 9 57 46 PM" src="https://github.com/user-attachments/assets/5f93ffcb-fd00-4251-96a4-b0154f506dfa" />
+<img width="945" alt="Screenshot 2025-01-28 at 9 57 17 PM" src="https://github.com/user-attachments/assets/b6078d6f-9a55-4a0c-a15f-befd9b832809" />
+<img width="823" alt="Screenshot 2025-01-28 at 9 57 32 PM" src="https://github.com/user-attachments/assets/adbcacd5-72b3-4062-8319-0b5152d61f5b" />
+
+## CONTACT INFO
+Github: jt-code-dev
+email: writejthompson@gmail.com
+
+
+
+
+
+
