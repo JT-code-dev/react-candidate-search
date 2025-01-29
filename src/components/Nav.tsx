@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+//do i need to also import “./index.css”; ??
 
 const Nav = () => {
   const getNavLinkClass = ({ isActive }: { isActive: boolean }) =>

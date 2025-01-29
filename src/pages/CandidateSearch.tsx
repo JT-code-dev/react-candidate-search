@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { searchGithub } from "../api/API";
-import { Candidate } from "./interfaces/Candidate.interface";
+import { Candidate } from "../interfaces/Candidate.interface";
 
 const CandidateSearch = () => {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
@@ -23,7 +23,7 @@ const CandidateSearch = () => {
   }, []);
 
   const saveCandidate = () => {
-    const currentCandidate: Candidate[] = candidates[currentIndex];
+    const currentCandidate: Candidate = candidates[currentIndex];
     const savedCandidates: any = JSON.parse(localStorage.getItem("savedCandidates") || "[]");
     savedCandidates.push(currentCandidate);
     localStorage.setItem("savedCandidates", JSON.stringify(savedCandidates));
@@ -84,3 +84,4 @@ const CandidateSearch = () => {
 
 export default CandidateSearch;
 
+// Updated on Jan 28, 2025
