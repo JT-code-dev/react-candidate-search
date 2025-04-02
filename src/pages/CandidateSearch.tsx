@@ -27,7 +27,9 @@ const CandidateSearch = () => {
   const searchForUsers = async () => {
     const data: Candidate[] = await searchGithub();
     setResults(data);
-    await searchForSpecificUser(data[currentIdx].login || '');
+    if (data[currentIdx]?.login) {
+      await searchForSpecificUser(data[currentIdx].login);
+    }
   };
 
   const makeDecision = async (isSelected: boolean) => {
@@ -40,6 +42,7 @@ const CandidateSearch = () => {
       parsedCandidates.push(currentUser);
       localStorage.setItem('savedCandidates', JSON.stringify(parsedCandidates));
     }
+
     if (currentIdx + 1 < results.length) {
       setCurrentIdx(currentIdx + 1);
       await searchForSpecificUser(results[currentIdx + 1].login || '');
@@ -51,7 +54,6 @@ const CandidateSearch = () => {
 
   useEffect(() => {
     searchForUsers();
-    searchForSpecificUser(currentUser.login || '');
   }, []);
 
   return (

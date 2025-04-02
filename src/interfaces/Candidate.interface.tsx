@@ -16,14 +16,14 @@ gravatar_id: '', …}
 
 */
 export interface Candidate {
-  id: number; 
-  login: string; 
-  avatar_url: string; 
-  html_url: string; 
-  company?: string | null; // User's company (optional and nullable)
-  location?: string | null; 
-  email?: string | null; 
-  bio?: string | null; 
-  followers?: number; 
-  following?: number; 
+  id: number | null;
+  login: string | null;
+  email: string | null;
+  html_url: string | null;
+  name: string | null;
+  bio: string | null;
+  company: string | null;
+  location: string | null;
+  avatar_url: string | null;
 }
+
