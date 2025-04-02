@@ -1,87 +1,65 @@
-import { useState, useEffect } from "react";
-import { searchGithub } from "../api/API";
-import { Candidate } from "../interfaces/Candidate.interface";
+import { useState, useEffect } from 'react';
+
+import { searchGithub, searchGithubUser } from '../api/API';
+import CandidateCard from '../components/CandidateCard';
+import type { Candidate } from '../interfaces/Candidate.interface';
 
 const CandidateSearch = () => {
-  const [candidates, setCandidates] = useState<Candidate[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [results, setResults] = useState<Candidate[]>([]);
+  const [currentUser, setCurrentUser] = useState<Candidate>({
+    id: null,
+    login: null,
+    email: null,
+    html_url: null,
+    name: null,
+    bio: null,
+    company: null,
+    location: null,
+    avatar_url: null,
+  });
+  const [currentIdx, setCurrentIdx] = useState<number>(0);
 
-  useEffect(() => {
-    const fetchCandidates = async () => {
-      try {
-        const data = await searchGithub();
-        setCandidates(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching candidates:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchCandidates();
-  }, []);
-
-  const saveCandidate = () => {
-    const currentCandidate: Candidate = candidates[currentIndex];
-    const savedCandidates: any = JSON.parse(localStorage.getItem("savedCandidates") || "[]");
-    savedCandidates.push(currentCandidate);
-    localStorage.setItem("savedCandidates", JSON.stringify(savedCandidates));
-    showNextCandidate();
+  const searchForSpecificUser = async (user: string) => {
+    const data: Candidate = await searchGithubUser(user);
+    setCurrentUser(data);
   };
 
-  const showNextCandidate = () => {
-    if (currentIndex < candidates.length - 1) {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
+  const searchForUsers = async () => {
+    const data: Candidate[] = await searchGithub();
+    setResults(data);
+    await searchForSpecificUser(data[currentIdx].login || '');
+  };
+
+  const makeDecision = async (isSelected: boolean) => {
+    if (isSelected) {
+      let parsedCandidates: Candidate[] = [];
+      const savedCandidates = localStorage.getItem('savedCandidates');
+      if (typeof savedCandidates === 'string') {
+        parsedCandidates = JSON.parse(savedCandidates);
+      }
+      parsedCandidates.push(currentUser);
+      localStorage.setItem('savedCandidates', JSON.stringify(parsedCandidates));
+    }
+    if (currentIdx + 1 < results.length) {
+      setCurrentIdx(currentIdx + 1);
+      await searchForSpecificUser(results[currentIdx + 1].login || '');
     } else {
-      alert("No more candidates available.");
+      setCurrentIdx(0);
+      await searchForUsers();
     }
   };
 
-  if (loading) return <div>Loading candidates...</div>;
-
-  if (!candidates.length) {
-    return <div>No candidates available to display at the moment.</div>;
-  }
-
-  const currentCandidate = candidates[currentIndex];
+  useEffect(() => {
+    searchForUsers();
+    searchForSpecificUser(currentUser.login || '');
+  }, []);
 
   return (
-    <div className="candidate-search">
+    <>
       <h1>Candidate Search</h1>
-      <div className="candidate-card">
-        <img
-          src={currentCandidate.avatar_url}
-          alt={`${currentCandidate.login}'s avatar`}
-          width="150"
-          height="150"
-        />
-        <h2>{currentCandidate.login}</h2>
-        <p>
-          <strong>Company:</strong> {currentCandidate.company || "Not Available"}
-        </p>
-        <p>
-          <strong>Location:</strong> {currentCandidate.location || "Not Available"}
-        </p>
-        <p>
-          <strong>Email:</strong> {currentCandidate.email || "Not Available"}
-        </p>
-        <a
-          href={currentCandidate.html_url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View GitHub Profile
-        </a>
-      </div>
-      <div className="actions">
-        <button onClick={saveCandidate}>Save Candidate</button>
-        <button onClick={showNextCandidate}>Skip Candidate</button>
-      </div>
-    </div>
+      <CandidateCard currentUser={currentUser} makeDecision={makeDecision} />
+    </>
   );
 };
 
 export default CandidateSearch;
-
-// Updated on Jan 28, 2025
